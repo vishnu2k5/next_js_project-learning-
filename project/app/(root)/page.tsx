@@ -1,10 +1,11 @@
-import SignIn from '@/components/sign-in'
+
 import React from 'react'
 
 const page = () => {
   return (
     <div>
-      <SignIn/>
+     
+      <h1 className='text-3xl'>home</h1>
     </div>
   )
 }

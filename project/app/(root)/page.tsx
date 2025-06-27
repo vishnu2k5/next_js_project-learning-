@@ -1,11 +1,24 @@
 
 import React from 'react'
 import SearchForm from '../../components/SearchForm'
+import StartupCard from '@/components/StartupCard';
 
 const page = async({searchParams}:{
   searchParams: Promise<{query?:string}>
 }) => {
-  const query = (await searchParams).query
+  const query = (await searchParams).query;
+  const posts = [
+    {
+      _createdAt: new Date(),
+      views:55,
+      auther:{_id:1},
+      _id:1,
+      description:'adfafasfasfasfasfasf',
+      image:'https://images.unsplash.com/photo-1589254066007-898d52d910d3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+      category:'robots',
+      title:'we robots',
+    }
+  ]
   return (
     <div>
      <section  style={{
@@ -26,6 +39,22 @@ const page = async({searchParams}:{
         {query?`search results for "${query}"` : 'All posts'} 
 
       </p>
+
+      <ul className='mt-7 grid md:grid-cols-3 sm:grid-cols-2 gap-5'>
+        {posts?.length>0 ? (
+          posts.map(
+            (posts:StartupCardType, index:number)=>(
+              <StartupCard key={posts?._id} post = {posts} />
+            )
+          )
+        ):(
+          <p className='text-black-100 text-sm font-normal'>
+            noposts found
+          </p>
+        )
+      }
+
+      </ul>
 
      </section>
     </div>

@@ -28,6 +28,10 @@
      .heading {
     @apply uppercase bg-black px-6 py-3  font-extrabold text-white sm:text-[54px] sm:leading-[64px] text-[36px] leading-[46px] max-w-5xl text-center my-5;
   }
+  .search-form{
+    @apply max-w-3xl w-full min-h-[80px] bg-white border-[5px] border-black rounded-[80px] text-[24px] mt-8 px-5 flex flex-row items-center gap-5
+  }
+
   .pattern {
     background-image: linear-gradient(
       to right,

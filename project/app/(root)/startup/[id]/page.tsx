@@ -1,8 +1,8 @@
 import { Suspense } from "react";
 import { client } from "@/sanity/lib/client";
 import {
-  PLAYLIST_BY_SLUG_QUERY,
-  STARTUP_BY_ID_QUERY,
+    PLAYLIST_BY_SLUG_QUERY,
+    STARTUP_BY_ID_QUERY,
 } from "@/sanity/lib/queries";
 import { notFound } from "next/navigation";
 import { formateDate } from "@/lib/utils";
@@ -16,82 +16,87 @@ const md = markdownit();
 export const experimental_ppr = true;
 
 const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
-  const id = (await params).id;
+    const id = (await params).id;
 
-  const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
+    const post = await client.fetch(STARTUP_BY_ID_QUERY, { id });
 
-  if (!post) return notFound();
+    if (!post) return notFound();
 
-  const parsedContent = md.render(post?.pitch || "");
+    const parsedContent = md.render(post?.pitch || "");
 
-  return (
-    <>
-      <section className="w-full bg-[#F41B7B] bg-[url('/stripe.svg')] bg-repeat flex justify-center items-center flex-col py-10 px-6 text-white">
-        <p className="bg-[#FEE440] text-black px-4 py-1 text-sm font-bold rounded-sm uppercase">
-          {formateDate(post?._createdAt)}
-        </p>
 
-        <h1 className="uppercase bg-black px-6 py-4 font-bold text-white sm:text-[48px] text-[30px] text-center mt-4">
-          {post.title}
-        </h1>
+    return (
+        <>
+            <section className="w-full bg-[#F41B7B] bg-[url('/stripe.svg')] bg-repeat flex justify-center items-center flex-col py-10 px-6 text-white">
+                <p className="bg-[#FEE440] text-black px-4 py-1 text-sm font-bold rounded-sm uppercase">
+                    {formateDate(post?._createdAt)}
+                </p>
 
-        <p className="mt-4 text-center text-white text-lg max-w-2xl">
-          {post.description}
-        </p>
-      </section>
+                <h1 className="uppercase bg-black px-6 py-4 font-bold text-white sm:text-[48px] text-[30px] text-center mt-4">
+                    {post.title}
+                </h1>
 
-      <section className="px-6 py-10 max-w-6xl mx-auto">
-        <img
-          src={post.image}
-          alt="thumbnail"
-          className="w-full h-auto rounded-xl shadow-xl"
-        />
+                <p className="mt-4 text-center text-white text-lg max-w-2xl">
+                    {post.description}
+                </p>
+            </section>
 
-        <div className="space-y-6 mt-10 max-w-4xl mx-auto">
-          <div className="flex justify-between items-center gap-5">
-            <Link
-              href={`/user/${post.author?._id}`}
-              className="flex gap-3 items-center"
-            >
-              <Image
-                src={post.author?.image}
-                alt="avatar"
-                width={64}
-                height={64}
-                className="rounded-full border-2 border-black"
-              />
+            <section className="px-6 py-10 max-w-6xl mx-auto">
+                <img
+                    src={post.image}
+                    alt="thumbnail"
+                    className="w-full h-auto rounded-xl shadow-xl"
+                />
 
-              <div>
-                <p className="text-lg font-semibold">{post.author?.name}</p>
-                <p className="text-sm text-gray-500">@{post.author?.username}</p>
-              </div>
-            </Link>
+                <div className="space-y-6 mt-10 max-w-4xl mx-auto">
+                    <div className="flex justify-between items-center gap-5">
+                        <Link
+                            href={`/user/${post.author._id}`}
+                            className="flex gap-3 items-center"
+                        >
+                            {post.author.image ? (
+                                <Image
+                                    src={post.author.image}
+                                    alt="avatar"
+                                    width={64}
+                                    height={64}
+                                    className="rounded-full border-2 border-black"
+                                />
+                            ) : (
+                                <div className="w-16 h-16 rounded-full bg-gray-200 border-2 border-black" />
+                            )}
 
-            <p className="bg-pink-100 text-pink-700 font-semibold px-4 py-2 rounded-full">
-              {post.category}
-            </p>
-          </div>
+                            <div>
+                                <p className="text-lg font-semibold text-black">{post.author?.name}</p>
+                                <p className="text-sm text-gray-500">@{post.author?.username}</p>
+                            </div>
+                        </Link>
 
-          <h3 className="text-2xl font-bold">Pitch Details</h3>
+                        <p className="bg-pink-100 text-pink-700 font-semibold px-4 py-2 rounded-full">
+                            {post.category}
+                        </p>
+                    </div>
 
-          {parsedContent ? (
-            <article
-              className="prose prose-p:text-black prose-headings:text-black"
-              dangerouslySetInnerHTML={{ __html: parsedContent }}
-            />
-          ) : (
-            <p className="text-gray-500 text-sm">No details provided</p>
-          )}
-        </div>
+                    <h3 className="text-2xl font-bold text-black">Pitch Details</h3>
 
-        <hr className="border-dotted border-gray-300 my-12 max-w-4xl mx-auto" />
+                    {parsedContent ? (
+                        <article
+                            className="prose prose-p:text-black prose-headings:text-black text-black"
+                            dangerouslySetInnerHTML={{ __html: parsedContent }}
+                        />
+                    ) : (
+                        <p className="text-gray-500 text-sm">No details provided</p>
+                    )}
+                </div>
 
-        <Suspense fallback={<Skeleton className="view_skeleton" />}>
-          {/* <View id={id} /> */}
-        </Suspense>
-      </section>
-    </>
-  );
+                <hr className="border-dotted border-gray-300 my-12 max-w-4xl mx-auto" />
+
+                <Suspense fallback={<Skeleton className="view_skeleton" />}>
+                    {/* <View id={id} /> */}
+                </Suspense>
+            </section>
+        </>
+    );
 };
 
 export default Page;

@@ -7,7 +7,7 @@ const SearchForm = ({query}:{query?:string}) => {
 
   return (
     <Form action="/" scroll={false} className='search-form'>
-      <input 
+     <input 
       name='query'
       defaultValue={query}
       className='flex-1 font-bold placeholder:font-semibold text-[#333333] w-full h-auto outline-none'

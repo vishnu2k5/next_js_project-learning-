@@ -24,7 +24,7 @@ const Navbar = async() => {
                   "use server"
                   await signOut()
                 }}>
-                  <button type='submit' className='cursor-pointer hover:opacity-90'>logout</button>
+                <button type='submit' className='cursor-pointer hover:opacity-90'>logout</button>
                 </form>
                 <Link href={`/user/${session?.user?.id}`} className='cursor-pointer hover:opacity-90'> <span>{session?.user?.name}</span></Link>
                 </>

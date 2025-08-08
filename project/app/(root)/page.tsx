@@ -1,26 +1,20 @@
 
 import React from 'react'
 import SearchForm from '../../components/SearchForm'
-import StartupCard from '@/components/StartupCard';
+import StartupCard,{ StartupTypeCard }  from '@/components/StartupCard';
+import { STARTUPS_QUERY } from '@/sanity/lib/queries';
+import { sanityFetch,SanityLive } from '@/sanity/lib/live';
 
 const page = async({searchParams}:{
   searchParams: Promise<{query?:string}>
 }) => {
   const query = (await searchParams).query;
-  const posts = [
-    {
-      _createdAt: new Date(),
-      views:55,
-      author:{_id:1, name: 'visnu'},
-      _id:1,
-      description:'adfafasfasfasfasfasf',
-      image:'https://images.unsplash.com/photo-1589254066007-898d52d910d3?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-      hashtag:'robots',
-      title:'we robots',
-    }
-  ]
+  const params = {search:query||null}
+  // console.log(JSON.stringify(posts, null , 2))
+  const {data:posts}=await sanityFetch({query:STARTUPS_QUERY,params})
+
   return (
-    <div>
+    <>
      <section  style={{
     backgroundColor: "#FF2E63",
     backgroundImage:
@@ -35,7 +29,7 @@ const page = async({searchParams}:{
       <SearchForm query={query}/>
      </section>
      <section className='px-6 py-10 max-w-7xl mx-auto'>
-      <p className='text-30-semibold'>
+      <p className='font-semibold text-[28px] text-black '>
         {query?`search results for "${query}"` : 'All posts'} 
 
       </p>
@@ -43,7 +37,7 @@ const page = async({searchParams}:{
       <ul className='mt-7 grid md:grid-cols-3 sm:grid-cols-2 gap-5'>
         {posts?.length>0 ? (
           posts.map(
-            (posts:StartupCardType, index:number)=>(
+            (posts:StartupTypeCard, index:number)=>(
               <StartupCard key={posts?._id} post = {posts} />
             )
           )
@@ -57,7 +51,9 @@ const page = async({searchParams}:{
       </ul>
 
      </section>
-    </div>
+     <SanityLive/>
+    </>
+    
   )
 }
 

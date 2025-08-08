@@ -4,3 +4,15 @@ import { twMerge } from "tailwind-merge"
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
+<<<<<<< HEAD
+=======
+
+export function formateDate(date:string){
+  return new Date(date).toLocaleDateString('en-US',{
+    month:'long',
+    day: 'numeric',
+    year: 'numeric'
+
+  })
+}
+>>>>>>> changing

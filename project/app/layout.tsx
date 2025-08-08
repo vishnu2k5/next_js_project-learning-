@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
-import "./globals.css";
+import "@/app/globals.css";
+import "easymde/dist/easymde.min.css";
+
+
 
 const workSans = localFont({
   src: [
@@ -54,8 +57,8 @@ const workSans = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "sahare your things ",
-  description: "a simple app to share there thughts",
+  title: "fam socialmedia",
+  description: "share your things",
 };
 
 export default function RootLayout({
@@ -65,10 +68,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={workSans.variable}
-      >
+      <body className={workSans.variable}>
         {children}
+        
       </body>
     </html>
   );

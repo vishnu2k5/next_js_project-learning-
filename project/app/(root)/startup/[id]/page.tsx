@@ -62,7 +62,7 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
               />
 
               <div>
-                <p className="text-lg font-semibold">{post.author?.name}</p>
+                <p className="text-lg font-semibold text-black">{post.author?.name}</p>
                 <p className="text-sm text-gray-500">@{post.author?.username}</p>
               </div>
             </Link>
@@ -72,11 +72,11 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </p>
           </div>
 
-          <h3 className="text-2xl font-bold">Pitch Details</h3>
+          <h3 className="text-2xl font-bold text-black">Pitch Details</h3>
 
           {parsedContent ? (
             <article
-              className="prose prose-p:text-black prose-headings:text-black"
+              className="prose prose-p:text-black prose-headings:text-black text-black font-10"
               dangerouslySetInnerHTML={{ __html: parsedContent }}
             />
           ) : (

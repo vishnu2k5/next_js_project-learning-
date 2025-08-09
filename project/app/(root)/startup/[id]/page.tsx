@@ -10,6 +10,7 @@ import Link from "next/link";
 import Image from "next/image";
 import markdownit from "markdown-it";
 import { Skeleton } from "@/components/ui/skeleton";
+import View from "@/components/ui/View";
 
 const md = markdownit();
 
@@ -72,22 +73,23 @@ const Page = async ({ params }: { params: Promise<{ id: string }> }) => {
             </p>
           </div>
 
-          <h3 className="text-2xl font-bold text-black">Pitch Details</h3>
+          <h3 className="text-xl font-bold text-black mb-4">Pitch details</h3>
 
           {parsedContent ? (
             <article
-              className="prose prose-p:text-black prose-headings:text-black text-black font-10"
+              className=" text-black prose prose-p:text-black prose-headings:text-black prose-strong:text-black prose-strong:font-semibold prose-em:italic max-w-none text-base leading-relaxed"
               dangerouslySetInnerHTML={{ __html: parsedContent }}
             />
           ) : (
-            <p className="text-gray-500 text-sm">No details provided</p>
+            <p className="text-gray-500 text-sm text-black">No details provided</p>
           )}
+
         </div>
 
         <hr className="border-dotted border-gray-300 my-12 max-w-4xl mx-auto" />
 
         <Suspense fallback={<Skeleton className="view_skeleton" />}>
-          {/* <View id={id} /> */}
+          <View id={id} />
         </Suspense>
       </section>
     </>

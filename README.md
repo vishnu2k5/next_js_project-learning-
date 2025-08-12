@@ -1,1 +1,1 @@
-# yc ddictionary
+# yc dictionary

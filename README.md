@@ -1,1 +1,1 @@
-# next_js_project-learning-
+# yc ddictionary
